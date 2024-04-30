@@ -7,7 +7,7 @@
 
 
 // Constructor:
-TransmissionChannel::TransmissionChannel( long long MaxSizeOfMessage , float Corruption, long long LimitOfErrors) {
+TransmissionChannel::TransmissionChannel(bi MaxSizeOfMessage , float Corruption, bi LimitOfErrors) {
     this->MaxSizeOfMessage = MaxSizeOfMessage;
     mu = Corruption;
     MaxNumberOfErrors = LimitOfErrors;
@@ -24,8 +24,8 @@ bi TransmissionChannel::MaxLPrimes() {
     sort(primes.begin(), primes.end(), std::greater<>());
     bi Product = 1;
     std::vector<bi>::iterator iter = primes.begin();
-    for(; iter < MaxNumberOfErrors+iter; iter++) {
-        Product *= *iter;
+    for(bi i = 0; i < MaxNumberOfErrors ; i++) {
+        Product *= *iter; iter++;
     }
     return Product;
 }

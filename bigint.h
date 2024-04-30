@@ -406,9 +406,7 @@ class bigint {
         /* Operator {>} Overloadings, for different kind of 
         parameter for the programmer's convinience  */
 
-        bool operator > (bigint const &n) {
-            return is_strictlyMaximum(str, n.str);
-        }
+        
         friend bool operator > (bigint const &n1, int n2) {
             return is_strictlyMaximum(n1.str, std::to_string(n2));
         }
@@ -427,13 +425,14 @@ class bigint {
         friend bool operator > (long long int n1, bigint const &n2) {
             return is_strictlyMaximum(std::to_string(n1), n2.str);
         }
+        friend bool operator > (bigint n1, bigint const &n2) {
+            return is_strictlyMaximum((n1.str), n2.str);
+        }
 
         /* Operator {<} Overloadings, for different kind of 
         parameter for the programmer's convinience  */
 
-        bool operator < (bigint const &n) {
-            return is_strictlyMinimum(str, n.str);
-        }
+        
         friend bool operator < (bigint const &n1, int n2) {
             return is_strictlyMinimum(n1.str, std::to_string(n2));
         }
@@ -452,13 +451,14 @@ class bigint {
         friend bool operator < (long long int n1, bigint const &n2) {
             return is_strictlyMinimum(std::to_string(n1), n2.str);
         }
+        friend bool operator < (bigint n1, bigint const &n2) {
+            return is_strictlyMinimum((n1.str), n2.str);
+        }
 
         /* Operator {>=} Overloadings, for different kind of 
         parameter for the programmer's convinience  */
 
-        bool operator >= (bigint const &n) {
-            return is_maximum(str, n.str);
-        }
+        
         friend bool operator >= (bigint const &n1, int n2) {
             return is_maximum(n1.str, std::to_string(n2));
         }
@@ -477,13 +477,14 @@ class bigint {
         friend bool operator >= (long long int n1, bigint const &n2) {
             return is_maximum(std::to_string(n1), n2.str);
         }
+        friend bool operator >= (bigint n1, bigint const &n2) {
+            return is_maximum((n1.str), n2.str);
+        }
 
         /* Operator {<=} Overloadings, for different kind of 
         parameter for the programmer's convinience  */
 
-        bool operator <= (bigint const &n) {
-            return is_minimum(str, n.str);
-        }
+        
         friend bool operator <= (bigint const &n1, int n2) {
             return is_minimum(n1.str, std::to_string(n2));
         }
@@ -502,14 +503,15 @@ class bigint {
         friend bool operator <= (long long int n1, bigint const &n2) {
             return is_minimum(std::to_string(n1), n2.str);
         }
+        friend bool operator <= (bigint n1, bigint const &n2) {
+            return is_minimum((n1.str), n2.str);
+        }
 
 
         /* Operator {==} Overloadings, for different kind of 
         parameter for the programmer's convinience  */
 
-        bool operator ==(bigint const &n) {
-            return (*this).str == n.str;
-        }
+        
         friend bool operator == (bigint const &n1, int n2) {
             return n1.str == std::to_string(n2);
         }
@@ -528,14 +530,15 @@ class bigint {
         friend bool operator == (long long int n1, bigint const &n2) {
             return std::to_string(n1) == n2.str;
         }
+        friend bool operator == (bigint n1, bigint const &n2) {
+            return (n1.str) == n2.str;
+        }
 
 
         /* Operator {!=} Overloadings, for different kind of 
         parameter for the programmer's convinience  */
 
-        bool operator !=(bigint const &n) {
-            return (*this).str != n.str;
-        }
+        
         friend bool operator != (bigint const &n1, int n2) {
             return n1.str != std::to_string(n2);
         }
@@ -553,6 +556,9 @@ class bigint {
         }
         friend bool operator != (long long int n1, bigint const &n2) {
             return std::to_string(n1) != n2.str;
+        }
+        friend bool operator != (bigint n1, bigint const &n2) {
+            return (n1.str) != n2.str;
         }
 
         //-----------------------------------------------------------
@@ -666,7 +672,7 @@ class bigint {
 };
 
 
-bool bigint::is_bigint(std::string s) {                              // Checks if the feeded integer is valid Number or not.
+inline bool bigint::is_bigint(std::string s) {                              // Checks if the feeded integer is valid Number or not.
     if(s[0] == '-')
         s.erase(0, 1);
     for(unsigned long long int i = 0; i < s.length(); ++i) {
@@ -697,7 +703,7 @@ bool bigint::is_bigint(std::string s) {                              // Checks i
         where n ans m are the lengths of respective strings(Integers) provided.
 */
 
-std::string bigint::add(std::string str1, std::string str2) {          // returns arithmetic addition of str1+str2
+inline std::string bigint::add(std::string str1, std::string str2) {          // returns arithmetic addition of str1+str2
     int str1_len = str1.length();
     int str2_len = str2.length();
     std::string sum = "";
@@ -757,7 +763,7 @@ std::string bigint::add(std::string str1, std::string str2) {          // return
         where n ans m are the lengths of respective strings(Integers) provided.
 */
 
-std::string bigint::subtract(std::string str1, std::string str2) {                 // returns arithmetic subtraction of str1-str2
+inline std::string bigint::subtract(std::string str1, std::string str2) {                 // returns arithmetic subtraction of str1-str2
     int str1_len = str1.length();
     int str2_len = str2.length();
     std::string sum = "";
@@ -845,7 +851,7 @@ std::string bigint::subtract(std::string str1, std::string str2) {              
         where n ans m are the lengths of respective strings(Integers) provided.
 */
 
-std::string bigint::multiply(std::string str1, std::string str2) {             // return arithmetic multiplication of str1*str2
+inline std::string bigint::multiply(std::string str1, std::string str2) {             // return arithmetic multiplication of str1*str2
     bool toAddNeg = false;
     int str1_len = str1.length();
     int str2_len = str2.length();
@@ -915,7 +921,7 @@ std::string bigint::multiply(std::string str1, std::string str2) {             /
         where n ans m are the lengths of respective strings(Integers) provided.
 */
 
-std::string bigint::divide(std::string str1, std::string str2) {                   // return arithmetic division of str1/str2
+inline std::string bigint::divide(std::string str1, std::string str2) {                   // return arithmetic division of str1/str2
     std::string ans = "";
     if(str2 == "0") {
         return "0";
@@ -970,7 +976,7 @@ std::string bigint::divide(std::string str1, std::string str2) {                
     return ans;
 }
 
-std::string bigint::shortDivide(std::string s1, unsigned long long int divisor) {     // return arithmetic division of str1/str2
+inline std::string bigint::shortDivide(std::string s1, unsigned long long int divisor) {     // return arithmetic division of str1/str2
     std::string ans;
     int idx = 0;
     long long int temp = s1[idx] - '0';
@@ -991,13 +997,13 @@ std::string bigint::shortDivide(std::string s1, unsigned long long int divisor) 
     return ans;
 }
 
-std::string bigint::mod(std::string str1, std::string str2) {                  // return arithmetic modulos of str1%str2
+inline std::string bigint::mod(std::string str1, std::string str2) {                  // return arithmetic modulos of str1%str2
     std::string ans = subtract(str1, multiply(divide(str1, str2), str2));
     return ans;
 }
 
 
-std::string bigint::maximum(std::string str1, std::string str2) {              // return maximum of both strings.
+inline std::string bigint::maximum(std::string str1, std::string str2) {              // return maximum of both strings.
     std::string max = "";
     bool bothNeg = false;
     bool isMax1 = false;
@@ -1044,26 +1050,26 @@ std::string bigint::maximum(std::string str1, std::string str2) {              /
     }
 }
 
-std::string bigint::minimum(std::string str1, std::string str2) {              // return minimum of both strings.
+inline std::string bigint::minimum(std::string str1, std::string str2) {              // return minimum of both strings.
     std::string ans = maximum(str1, str2);
     if(ans == str1)
         return str2;
     return str1;
 }
 
-bool bigint::is_maximum(std::string str1, std::string str2) {             //checks if str1 >= str2, numerically
+inline bool bigint::is_maximum(std::string str1, std::string str2) {             //checks if str1 >= str2, numerically
     if(str1 == maximum(str1, str2))
         return true;
     return false;
 }
 
-bool bigint::is_minimum(std::string str1, std::string str2) {             //checks if str1 <= str2, numerically
+inline bool bigint::is_minimum(std::string str1, std::string str2) {             //checks if str1 <= str2, numerically
     if(str2 == maximum(str1, str2))
         return true;
     return false;
 }
 
-bool bigint::is_strictlyMaximum(std::string str1, std::string str2) {    //checks if str1 > str2, numerically
+inline bool bigint::is_strictlyMaximum(std::string str1, std::string str2) {    //checks if str1 > str2, numerically
     if(str1 == str2)
         return false;
     if(str1 == maximum(str1, str2))
@@ -1071,7 +1077,7 @@ bool bigint::is_strictlyMaximum(std::string str1, std::string str2) {    //check
     return false;
 }
 
-bool bigint::is_strictlyMinimum(std::string str1, std::string str2) {    //checks if str1 < str2, numerically
+inline bool bigint::is_strictlyMinimum(std::string str1, std::string str2) {    //checks if str1 < str2, numerically
     if(str1 == str2)
         return false;
     if(str2 == maximum(str1, str2))
@@ -1079,7 +1085,7 @@ bool bigint::is_strictlyMinimum(std::string str1, std::string str2) {    //check
     return false;
 }
 
-std::string bigint::trim(std::string s) {                         // function to remove zeros
+inline std::string bigint::trim(std::string s) {                         // function to remove zeros
     if(s == "0")
         return s;
     if(s[0] == '-') {
@@ -1103,7 +1109,7 @@ std::string bigint::trim(std::string s) {                         // function to
 
 
 
-std::string bigint::abs(std::string s) {                          // returns absolute value of string
+inline std::string bigint::abs(std::string s) {                          // returns absolute value of string
     if(s[0] == '-')
         s.erase(0, 1);
     return s;
@@ -1123,7 +1129,7 @@ std::string bigint::abs(std::string s) {                          // returns abs
         where n ans m are the lengths of respective strings(Integers) provided.
 */
 
-std::string bigint::pow(std::string str1, std::string str2) {                  // returns str1^str2, ^ -> power, numerically
+inline std::string bigint::pow(std::string str1, std::string str2) {                  // returns str1^str2, ^ -> power, numerically
     if(str2 == "0") {
         return "1";
     } else if(str1 == "0") {
@@ -1176,7 +1182,7 @@ std::string bigint::pow(std::string str1, std::string str2) {                  /
         Algorithmic Space Complexity : O(s/2);
 */
 
-std::string bigint::sqrt(std::string s) {                 // returns sqrt(s), numerically
+inline std::string bigint::sqrt(std::string s) {                 // returns sqrt(s), numerically
     if(s[0] == '-')
         return s;
     if(s == "0")
@@ -1213,7 +1219,7 @@ std::string bigint::sqrt(std::string s) {                 // returns sqrt(s), nu
 
 
 
-std::string bigint::log2(std::string s) {                 // returns log(s) to base of 2
+inline std::string bigint::log2(std::string s) {                 // returns log(s) to base of 2
     if(s == "0") {
         // throw new exception(std::out_of_range("log(0) is undefined"));
         return std::to_string(std::log2(0));
@@ -1230,7 +1236,7 @@ std::string bigint::log2(std::string s) {                 // returns log(s) to b
     return logVal;
 }
 
-std::string bigint::log10(std::string s) {                // returns log(s) to base of 10
+inline std::string bigint::log10(std::string s) {                // returns log(s) to base of 10
     if(s == "0") {
         // throw new exception(std::out_of_range("log(0) is undefined"));
         return std::to_string(std::log2(0));
@@ -1242,26 +1248,26 @@ std::string bigint::log10(std::string s) {                // returns log(s) to b
     return std::to_string(s.length() - 1);
 }
 
-std::string bigint::logwithbase(std::string val, std::string base) {
+inline std::string bigint::logwithbase(std::string val, std::string base) {
     return divide(log2(val), log2(base));
 }
 
-std::string bigint::antilog2(std::string s) {
+inline std::string bigint::antilog2(std::string s) {
     return pow("2", s);
 }
 
-std::string bigint::antilog10(std::string s) {
+inline std::string bigint::antilog10(std::string s) {
     return pow("10", s);
 }
 
-void bigint::swap(std::string& str1, std::string& str2) {
+inline void bigint::swap(std::string& str1, std::string& str2) {
     std::string s;
     s = str1;
     str1 = str2;
     str2 = s;
 }
 
-std::string bigint::reverse(std::string s) {          // reverses the string number, example: "7875" => "5787"
+inline std::string bigint::reverse(std::string s) {          // reverses the string number, example: "7875" => "5787"
     bool fl = false;
     if(s[0] == '-') {
         s.erase(0, 1);
@@ -1293,7 +1299,7 @@ std::string bigint::reverse(std::string s) {          // reverses the string num
         Algorithmic Space Complexity : O(log(str2)) in stack;
 */
 
-std::string bigint::gcd(std::string str1, std::string str2) {
+inline std::string bigint::gcd(std::string str1, std::string str2) {
     if(is_strictlyMaximum(str2, str1))
         swap(str1, str2);
     std::string temp = "";
@@ -1305,11 +1311,11 @@ std::string bigint::gcd(std::string str1, std::string str2) {
     return str1;
 }
 
-std::string bigint::lcm(std::string str1, std::string str2) {      // return lcm of both str1 and str2
+inline std::string bigint::lcm(std::string str1, std::string str2) {      // return lcm of both str1 and str2
     return divide(multiply(str1, str2), gcd(str1, str2));
 }
 
-std::string bigint::fact(std::string s) {                     // returns the factorial of string s, numerically
+inline std::string bigint::fact(std::string s) {                     // returns the factorial of string s, numerically
     if(s[0] == '-') {
         throw std::runtime_error("Factorial of Negative Integer is not defined.");
     }
@@ -1323,7 +1329,7 @@ std::string bigint::fact(std::string s) {                     // returns the fac
     return ans;
 }
 
-bool bigint::isPalindrome(std::string s) {                  // checks if the Integer as string, s is Palindrome no. or not
+inline bool bigint::isPalindrome(std::string s) {                  // checks if the Integer as string, s is Palindrome no. or not
     if(s[0] == '-')
         s.erase(0, 1);
     unsigned long long int beg = 0, end = s.length() - 1;
@@ -1336,7 +1342,7 @@ bool bigint::isPalindrome(std::string s) {                  // checks if the Int
     return true;
 }
 
-bool bigint::isPrime(std::string s) {                // checks if the String as Number is prime or not
+inline bool bigint::isPrime(std::string s) {                // checks if the String as Number is prime or not
     if(maximum(s, "2") != s)
         return false;
     std::string sqrt = bigint::sqrt(s);

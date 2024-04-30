@@ -4,7 +4,6 @@
 
 // Constructor:
 SolomonReeds::SolomonReeds() {
-    MaxMessageSize = 100;        
 }
 
 // Sending a signal:
@@ -26,7 +25,7 @@ bi SolomonReeds::SolomonReedRecieve(TransmissionChannel &Medium) {
     bi b = ChineseRemainder(Medium.primes, MessageRecieved);
     // Step 2: Recovering Message:
     bi M = Medium.MaxMessageSize();
-    vc<bi> ResultRST = BinaryAdvancedEGCD(Medium.ProductOfPrimes,b,Medium.MaxLPrimes()*MaxMessageSize);
+    vc<bi> ResultRST = BinaryAdvancedEGCD(Medium.ProductOfPrimes,b,Medium.MaxLPrimes()*Medium.MaxMessageSize());
     if(ResultRST[0] < bi(0)) ResultRST[0] += Medium.ProductOfPrimes;
     if(ResultRST[0] % ResultRST[2] == bi(0)) {
         return ResultRST[0]/ResultRST[2];

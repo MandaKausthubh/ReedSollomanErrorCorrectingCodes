@@ -12,13 +12,13 @@ class TransmissionChannel {
     private:
         vc<bi> Message;
         float mu;
-        long long MaxSizeOfMessage;
-        long long MaxNumberOfErrors;
+        bi MaxSizeOfMessage;
+        bi MaxNumberOfErrors;
     public:
         bi ProductOfPrimes;
         vc<bi> primes;
 
-        TransmissionChannel( long long MaxSizeOfMessage , float Corruption, long long LimitOfErrors);
+        TransmissionChannel( bi MaxSizeOfMessage , float Corruption, bi LimitOfErrors);
         void TransmitSendMessage(vc<bi> MessageSent);
         vc<bi> TransmitRecieveMessage();
         bi MaxMessageSize();
@@ -28,7 +28,6 @@ class TransmissionChannel {
 
 class SolomonReeds {
     private:
-        bi MaxMessageSize;
     public:
         SolomonReeds();
         void SolomonReedsSend(bi Message, TransmissionChannel &Medium);
